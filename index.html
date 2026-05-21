@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CME Demo Series | Center for Machining Excellence</title>
+  <meta name="description" content="The CME Demo Series showcases live machine demonstrations from the Center for Machining Excellence, featuring industry-leading partners across toolholding, cutting tools, workholding, CAD/CAM, and more." />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rf-red:       #C8102E;
+      --rf-dark:      #1a1a1a;
+      --rf-mid:       #2d2d2d;
+      --rf-gold:      #D4AF37;
+      --rf-blue:      #003DA5;
+      --max-w:        1400px;
+      --nav-h:        56px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--rf-dark);
+      color: #fff;
+      overflow-x: hidden;
+      padding-top: var(--nav-h);
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    /* ============================================================
+       STICKY TOP NAV
+    ============================================================ */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: #000;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      z-index: 100;
+    }
+    .nav-logo-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .nav-logo-cme { height: 28px; width: auto; opacity: 0.9; }
+    .nav-divider {
+      width: 1px;
+      height: 22px;
+      background: rgba(255,255,255,0.15);
+    }
+    .nav-series-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a.active { color: var(--rf-red); }
+
+    /* ============================================================
+       CHECKER BAR
+    ============================================================ */
+    .checker-bar {
+      height: 6px;
+      background-image: repeating-conic-gradient(#000 0% 25%, #fff 0% 50%);
+      background-size: 6px 6px;
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       PAGE HERO STRIP
+       Thin red band with series breadcrumb
+    ============================================================ */
+    .series-strip {
+      background: var(--rf-red);
+      padding: 0.6rem 1.5rem;
+    }
+    .series-strip-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .series-strip a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      transition: color 0.15s;
+    }
+    .series-strip a:hover { color: #fff; }
+    .series-strip .sep {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.75rem;
+    }
+    .series-strip .current {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    /* ============================================================
+       MAIN LAYOUT: VIDEO COLUMN + SIDEBAR
+    ============================================================ */
+    .page-body {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 38%;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    /* ============================================================
+       LEFT COLUMN: VIDEO + INFO
+    ============================================================ */
+    .video-col {}
+
+    /* Video wrapper: 16:9, never taller than 520px */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: min(56.25%, 520px);
+      border-radius: 4px;
+      overflow: hidden;
+      background: #000;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    /* Lesson meta below video */
+    .lesson-meta {
+      margin-top: 1.1rem;
+      padding-bottom: 1.1rem;
+      border-bottom: 0.5px solid rgba(255,255,255,0.1);
+    }
+    .lesson-series-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rf-red);
+      margin-bottom: 0.35rem;
+    }
+    .lesson-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1.05;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .lesson-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .meta-pill i { font-size: 14px; color: var(--rf-red); }
+    .share-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-left: auto;
+    }
+    .share-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+    .share-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 3px;
+      background: var(--rf-mid);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 15px;
+      transition: background 0.15s, color 0.15s;
+      cursor: pointer;
+    }
+    .share-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+    /* ============================================================
+       INFO TABS (About / Resources)
+    ============================================================ */
+    .info-tabs {
+      margin-top: 1.25rem;
+    }
+    .tab-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 1.25rem;
+    }
+    .tab-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+      padding: 0.6rem 1.25rem 0.6rem 0;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab-btn:hover { color: rgba(255,255,255,0.75); }
+    .tab-btn.active {
+      color: #fff;
+      border-bottom-color: var(--rf-red);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* About tab content */
+    .about-body p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 1rem;
+      max-width: 640px;
+    }
+    .about-body p:last-child { margin-bottom: 0; }
+    .about-body strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+    .about-partners {
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 0.5px solid rgba(255,255,255,0.08);
+    }
+    .about-partners-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 0.75rem;
+    }
+    .about-partner-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .about-partner-chip {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.55);
+      border-radius: 2px;
+    }
+
+    /* Resources tab content */
+    .resources-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .resource-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--rf-mid);
+      border: 0.5px solid rgba(255,255,255,0.08);
+      border-radius: 3px;
+      padding: 0.7rem 1rem;
+      transition: border-color 0.15s;
+      cursor: pointer;
+    }
+    .resource-item:hover { border-color: rgba(255,255,255,0.25); }
+    .resource-icon { color: var(--rf-red); font-size: 18px; flex-shrink: 0; }
+    .resource-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+    }
+    .resource-type {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 1px;
+    }
+    .resource-arrow { margin-left: auto; color: rgba(255,255,255,0.2); font-size: 14px; }
+
+    /* Prev/Next navigation */
+    .lesson-nav {
+      display: flex;
+      gap: 10px;
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 0.5px solid rgba(255,255,255,0.08);
+    }
+    .lesson-nav-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--rf-mid);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      padding: 0.85rem 1rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .lesson-nav-btn:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
+    .lesson-nav-btn.next { flex-direction: row-reverse; text-align: right; }
+    .lesson-nav-btn.disabled { opacity: 0.3; pointer-events: none; }
+    .nav-btn-icon { color: rgba(255,255,255,0.3); font-size: 20px; flex-shrink: 0; }
+    .nav-btn-text {}
+    .nav-btn-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      display: block;
+      margin-bottom: 2px;
+    }
+    .nav-btn-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.3;
+    }
+
+    /* ============================================================
+       RIGHT SIDEBAR: TABBED SERIES LIST
+    ============================================================ */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--nav-h) + 1.5rem);
+      background: #111;
+      border: 0.5px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      overflow: hidden;
+      max-height: calc(100vh - var(--nav-h) - 3rem);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-header {
+      padding: 0.85rem 1rem 0;
+      flex-shrink: 0;
+      background: #111;
+    }
+    .sidebar-series-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rf-red);
+      margin-bottom: 0.2rem;
+    }
+    .sidebar-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #fff;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Sidebar category tabs -- wraps to two rows if needed */
+    .sidebar-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+      padding: 0 0.5rem;
+      gap: 0;
+    }
+    .sidebar-tabs::-webkit-scrollbar { display: none; }
+    .sidebar-tab-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      padding: 0.6rem 0.75rem;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+      flex-shrink: 0;
+    }
+    .sidebar-tab-btn:hover { color: rgba(255,255,255,0.75); }
+    .sidebar-tab-btn.active {
+      color: #fff;
+      border-bottom-color: var(--rf-red);
+    }
+
+    /* Sidebar episode list -- scrollable */
+    .sidebar-panels {
+      overflow-y: auto;
+      flex: 1;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.1) transparent;
+    }
+    .sidebar-panels::-webkit-scrollbar { width: 4px; }
+    .sidebar-panels::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+    .sidebar-panel { display: none; }
+    .sidebar-panel.active { display: block; }
+
+    .sidebar-empty {
+      padding: 2rem 1rem;
+      text-align: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .episode-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 0.7rem 1rem;
+      border-bottom: 0.5px solid rgba(255,255,255,0.05);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .episode-item:hover { background: rgba(255,255,255,0.04); }
+    .episode-item.active { background: rgba(200,16,46,0.1); border-left: 2px solid var(--rf-red); padding-left: calc(1rem - 2px); }
+    .episode-item:last-child { border-bottom: none; }
+
+    .ep-thumb {
+      width: 56px;
+      height: 38px;
+      background: var(--rf-mid);
+      border-radius: 2px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .ep-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .ep-thumb .play-icon {
+      position: absolute;
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
+      background: rgba(0,0,0,0.5);
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .episode-item:hover .ep-thumb .play-icon { opacity: 1; }
+    .episode-item.active .ep-thumb .play-icon { opacity: 1; background: rgba(200,16,46,0.5); }
+
+    .ep-info { flex: 1; min-width: 0; }
+    .ep-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      display: block;
+      margin-bottom: 2px;
+    }
+    .ep-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .episode-item.active .ep-title { color: #fff; }
+    .ep-duration {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.25);
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .ep-duration i { font-size: 11px; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .checker-bar-bottom {
+      height: 8px;
+      background-image: repeating-conic-gradient(#000 0% 25%, #fff 0% 50%);
+      background-size: 8px 8px;
+      margin-top: 3rem;
+    }
+    .footer-band {
+      background: #000;
+      padding: 1.75rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .footer-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer-cme-logo { height: 44px; width: auto; opacity: 0.8; }
+    .footer-rf-logo  { height: 22px; width: auto; opacity: 0.45; }
+    .footer-v-div { width: 1px; height: 30px; background: rgba(255,255,255,0.12); }
+    .footer-text { font-size: 0.75rem; color: rgba(255,255,255,0.22); letter-spacing: 0.06em; text-align: center; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 960px) {
+      .page-body {
+        grid-template-columns: 1fr;
+        padding: 1rem 1rem 3rem;
+      }
+      .sidebar {
+        position: static;
+        max-height: 520px;
+      }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 500px) {
+      .lesson-title { font-size: 1.5rem; }
+      .lesson-nav { flex-direction: column; }
+      .sidebar-tab-btn { font-size: 0.7rem; padding: 0.5rem 0.6rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- STICKY NAV -->
+  <nav class="site-nav" aria-label="Site navigation">
+    <div class="nav-logo-group">
+      <img
+        src="https://regousa.com/wp-content/uploads/CME_PNG-White_All.png"
+        alt="Center for Machining Excellence"
+        class="nav-logo-cme"
+      />
+      <div class="nav-divider" aria-hidden="true"></div>
+      <span class="nav-series-label">CME Spotlights</span>
+    </div>
+    <div class="nav-links">
+      <a href="https://regousa.com/center-for-machining-excellence/">About CME</a>
+      <a href="https://regomarketing.github.io/indydays/">IndyDays</a>
+      <a href="#" class="active">CME Spotlights</a>
+      <a href="https://regousa.com">REGO-FIX USA</a>
+    </div>
+  </nav>
+
+  <!-- CHECKER TOP -->
+  <div class="checker-bar" aria-hidden="true"></div>
+
+  <!-- SERIES BREADCRUMB STRIP -->
+  <div class="series-strip" aria-label="Series breadcrumb">
+    <div class="series-strip-inner">
+      <a href="#">CME</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <a href="#">CME Spotlights</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <span class="current">Toolholding</span>
+    </div>
+  </div>
+
+  <!-- MAIN PAGE BODY -->
+  <main class="page-body">
+
+    <!-- ==================== LEFT: VIDEO COLUMN ==================== -->
+    <div class="video-col">
+
+      <!-- VIDEO EMBED -->
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/tDBWOqRujkc?rel=0"
+          title="CME Spotlights: REGO-FIX Toolholding Demo"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <!-- LESSON META -->
+      <div class="lesson-meta">
+        <p class="lesson-series-tag">CME Spotlights &bull; Toolholding</p>
+        <h1 class="lesson-title">REGO-FIX powRgrip&reg;<br>Toolholding Demo</h1>
+        <div class="lesson-meta-row">
+          <span class="meta-pill"><i class="ti ti-building-factory-2" aria-hidden="true"></i> Center for Machining Excellence</span>
+          <span class="meta-pill"><i class="ti ti-clock" aria-hidden="true"></i> Whitestown, IN</span>
+          <div class="share-row" aria-label="Share this video">
+            <span class="share-label">Share</span>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://regousa.com/cme-demo-series" class="share-btn" aria-label="Share on Facebook" target="_blank" rel="noopener">
+              <i class="ti ti-brand-facebook" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://regousa.com/cme-demo-series" class="share-btn" aria-label="Share on LinkedIn" target="_blank" rel="noopener">
+              <i class="ti ti-brand-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="https://twitter.com/intent/tweet?url=https://regousa.com/cme-demo-series" class="share-btn" aria-label="Share on X / Twitter" target="_blank" rel="noopener">
+              <i class="ti ti-brand-x" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- INFO TABS: ABOUT / RESOURCES -->
+      <div class="info-tabs">
+        <div class="tab-nav" role="tablist" aria-label="Video information">
+          <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-about" id="btn-about">About</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-resources" id="btn-resources">Resources</button>
+        </div>
+
+        <!-- ABOUT TAB -->
+        <div class="tab-panel active about-body" id="tab-about" role="tabpanel" aria-labelledby="btn-about">
+          <p>
+            The <strong>CME Spotlight Series</strong> brings the shop floor to your screen. Each video is filmed live at the
+            Center for Machining Excellence in Whitestown, Indiana &mdash; a 50,000+ sq ft facility built by REGO-FIX USA
+            to give machinists, engineers, and shop owners hands-on access to the industry's best equipment, tooling, and technology.
+          </p>
+          <p>
+            This spotlight showcases <strong>REGO-FIX powRgrip&reg; toolholding</strong> in action on a live CNC setup. You'll see
+            how powRgrip delivers industry-leading runout accuracy and clamping force without the heat required by shrink-fit systems
+            &mdash; and why it's the preferred toolholding solution in high-precision environments worldwide.
+          </p>
+          <p>
+            The CME Spotlight Series is produced in partnership with REGO-FIX USA and the CME's network of participating
+            technology partners. New spotlights are added regularly across categories including workholding, CAD/CAM, automation,
+            cutting tools, and more. <strong>All spotlights are free to watch.</strong>
+          </p>
+          <div class="about-partners">
+            <p class="about-partners-label">Featured in this demo</p>
+            <div class="about-partner-chips">
+              <span class="about-partner-chip">REGO-FIX</span>
+              <span class="about-partner-chip">powRgrip&reg;</span>
+              <span class="about-partner-chip">Center for Machining Excellence</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESOURCES TAB -->
+        <div class="tab-panel" id="tab-resources" role="tabpanel" aria-labelledby="btn-resources">
+          <ul class="resources-list">
+            <li>
+              <a href="https://regousa.com/product-category/powrgrip/" class="resource-item" target="_blank" rel="noopener">
+                <i class="ti ti-link resource-icon" aria-hidden="true"></i>
+                <div>
+                  <div class="resource-name">powRgrip&reg; Product Page</div>
+                  <div class="resource-type">regousa.com</div>
+                </div>
+                <i class="ti ti-arrow-up-right resource-arrow" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a href="https://regousa.com/center-for-machining-excellence/" class="resource-item" target="_blank" rel="noopener">
+                <i class="ti ti-building resource-icon" aria-hidden="true"></i>
+                <div>
+                  <div class="resource-name">About the CME</div>
+                  <div class="resource-type">regousa.com</div>
+                </div>
+                <i class="ti ti-arrow-up-right resource-arrow" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="resource-item">
+                <i class="ti ti-file-type-pdf resource-icon" aria-hidden="true"></i>
+                <div>
+                  <div class="resource-name">powRgrip Setup Guide</div>
+                  <div class="resource-type">PDF Download</div>
+                </div>
+                <i class="ti ti-arrow-up-right resource-arrow" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="resource-item">
+                <i class="ti ti-calendar-event resource-icon" aria-hidden="true"></i>
+                <div>
+                  <div class="resource-name">Visit the CME</div>
+                  <div class="resource-type">Schedule a tour or attend an event</div>
+                </div>
+                <i class="ti ti-arrow-up-right resource-arrow" aria-hidden="true"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PREV / NEXT LESSON NAV -->
+      <nav class="lesson-nav" aria-label="Previous and next demo">
+        <button class="lesson-nav-btn prev disabled" aria-label="Previous demo">
+          <i class="ti ti-chevron-left nav-btn-icon" aria-hidden="true"></i>
+          <div class="nav-btn-text">
+            <span class="nav-btn-label">Previous</span>
+            <span class="nav-btn-title">No previous demo</span>
+          </div>
+        </button>
+        <button class="lesson-nav-btn next" aria-label="Next demo">
+          <i class="ti ti-chevron-right nav-btn-icon" aria-hidden="true"></i>
+          <div class="nav-btn-text">
+            <span class="nav-btn-label">Next Demo</span>
+            <span class="nav-btn-title">Placeholder: Next Demo Title</span>
+          </div>
+        </button>
+      </nav>
+
+    </div>
+    <!-- END LEFT COLUMN -->
+
+
+    <!-- ==================== RIGHT: SIDEBAR ==================== -->
+    <aside class="sidebar" aria-label="Demo series catalog">
+
+      <div class="sidebar-header">
+        <p class="sidebar-series-name">CME Spotlights</p>
+        <p class="sidebar-title">Browse by Category</p>
+      </div>
+
+      <!-- SIDEBAR CATEGORY TABS -->
+      <div class="sidebar-tabs" role="tablist" aria-label="Demo categories">
+        <button class="sidebar-tab-btn active" role="tab" aria-selected="true"  data-panel="panel-workholding">Workholding</button>
+        <button class="sidebar-tab-btn"         role="tab" aria-selected="false" data-panel="panel-cutting-tools">Cutting Tools</button>
+        <button class="sidebar-tab-btn"         role="tab" aria-selected="false" data-panel="panel-toolholding">Toolholding</button>
+        <button class="sidebar-tab-btn"         role="tab" aria-selected="false" data-panel="panel-coolant">Coolant</button>
+        <button class="sidebar-tab-btn"         role="tab" aria-selected="false" data-panel="panel-cadcam">CAD/CAM</button>
+        <button class="sidebar-tab-btn"         role="tab" aria-selected="false" data-panel="panel-machines">Machines</button>
+        <button class="sidebar-tab-btn"         role="tab" aria-selected="false" data-panel="panel-metrology">Metrology</button>
+        <button class="sidebar-tab-btn"         role="tab" aria-selected="false" data-panel="panel-demos">Demos</button>
+      </div>
+
+      <!-- SIDEBAR PANELS -->
+      <div class="sidebar-panels">
+
+        <!-- WORKHOLDING -->
+        <div class="sidebar-panel active" id="panel-workholding" role="tabpanel">
+          <div class="episode-item" data-video-id="oW9tsjcbK8U" data-title="Triag Swiss Modular" data-category="Workholding">
+            <div class="ep-thumb">
+              <img src="https://img.youtube.com/vi/oW9tsjcbK8U/mqdefault.jpg" alt="" />
+              <div class="play-icon"><i class="ti ti-player-play-filled" aria-hidden="true"></i></div>
+            </div>
+            <div class="ep-info">
+              <span class="ep-num">Workholding &bull; 01</span>
+              <div class="ep-title">Triag Swiss Modular</div>
+              <div class="ep-duration"><i class="ti ti-clock" aria-hidden="true"></i> Spotlight</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CUTTING TOOLS -->
+        <div class="sidebar-panel" id="panel-cutting-tools" role="tabpanel">
+          <div class="sidebar-empty">Cutting Tools spotlights coming soon.</div>
+        </div>
+
+        <!-- TOOLHOLDING -->
+        <div class="sidebar-panel" id="panel-toolholding" role="tabpanel">
+          <div class="episode-item active" data-video-id="tDBWOqRujkc" data-title="REGO-FIX powRgrip&reg; Toolholding Spotlight" data-category="Toolholding">
+            <div class="ep-thumb">
+              <img src="https://img.youtube.com/vi/tDBWOqRujkc/mqdefault.jpg" alt="" />
+              <div class="play-icon"><i class="ti ti-player-play-filled" aria-hidden="true"></i></div>
+            </div>
+            <div class="ep-info">
+              <span class="ep-num">Toolholding &bull; 01</span>
+              <div class="ep-title">REGO-FIX powRgrip&reg; Spotlight</div>
+              <div class="ep-duration"><i class="ti ti-clock" aria-hidden="true"></i> Spotlight</div>
+            </div>
+          </div>
+          <div class="episode-item" data-video-id="lBTjgMGnDBk" data-title="REGO-FIX powRgrip" data-category="Toolholding">
+            <div class="ep-thumb">
+              <img src="https://img.youtube.com/vi/lBTjgMGnDBk/mqdefault.jpg" alt="" />
+              <div class="play-icon"><i class="ti ti-player-play-filled" aria-hidden="true"></i></div>
+            </div>
+            <div class="ep-info">
+              <span class="ep-num">Toolholding &bull; 02</span>
+              <div class="ep-title">REGO-FIX powRgrip</div>
+              <div class="ep-duration"><i class="ti ti-clock" aria-hidden="true"></i> Spotlight</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COOLANT -->
+        <div class="sidebar-panel" id="panel-coolant" role="tabpanel">
+          <div class="sidebar-empty">Coolant spotlights coming soon.</div>
+        </div>
+
+        <!-- CAD/CAM -->
+        <div class="sidebar-panel" id="panel-cadcam" role="tabpanel">
+          <div class="sidebar-empty">CAD/CAM spotlights coming soon.</div>
+        </div>
+
+        <!-- MACHINES -->
+        <div class="sidebar-panel" id="panel-machines" role="tabpanel">
+          <div class="episode-item" data-video-id="KIBpKM_5y7Y" data-title="Kitamura MyCenter 3X-V" data-category="Machines">
+            <div class="ep-thumb">
+              <img src="https://img.youtube.com/vi/KIBpKM_5y7Y/mqdefault.jpg" alt="" />
+              <div class="play-icon"><i class="ti ti-player-play-filled" aria-hidden="true"></i></div>
+            </div>
+            <div class="ep-info">
+              <span class="ep-num">Machines &bull; 01</span>
+              <div class="ep-title">Kitamura MyCenter 3X-V</div>
+              <div class="ep-duration"><i class="ti ti-clock" aria-hidden="true"></i> Spotlight</div>
+            </div>
+          </div>
+          <div class="episode-item" data-video-id="Sx9mPMKFPww" data-title="TORNOS Swiss GT13" data-category="Machines">
+            <div class="ep-thumb">
+              <img src="https://img.youtube.com/vi/Sx9mPMKFPww/mqdefault.jpg" alt="" />
+              <div class="play-icon"><i class="ti ti-player-play-filled" aria-hidden="true"></i></div>
+            </div>
+            <div class="ep-info">
+              <span class="ep-num">Machines &bull; 02</span>
+              <div class="ep-title">TORNOS Swiss GT13</div>
+              <div class="ep-duration"><i class="ti ti-clock" aria-hidden="true"></i> Spotlight</div>
+            </div>
+          </div>
+          <div class="episode-item" data-video-id="utkCY7qHbxk" data-title="KERN MicroHD" data-category="Machines">
+            <div class="ep-thumb">
+              <img src="https://img.youtube.com/vi/utkCY7qHbxk/mqdefault.jpg" alt="" />
+              <div class="play-icon"><i class="ti ti-player-play-filled" aria-hidden="true"></i></div>
+            </div>
+            <div class="ep-info">
+              <span class="ep-num">Machines &bull; 03</span>
+              <div class="ep-title">KERN MicroHD</div>
+              <div class="ep-duration"><i class="ti ti-clock" aria-hidden="true"></i> Spotlight</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- METROLOGY -->
+        <div class="sidebar-panel" id="panel-metrology" role="tabpanel">
+          <div class="episode-item" data-video-id="C5CeQC6RaAU" data-title="BRW Interview" data-category="Metrology">
+            <div class="ep-thumb">
+              <img src="https://img.youtube.com/vi/C5CeQC6RaAU/mqdefault.jpg" alt="" />
+              <div class="play-icon"><i class="ti ti-player-play-filled" aria-hidden="true"></i></div>
+            </div>
+            <div class="ep-info">
+              <span class="ep-num">Metrology &bull; 01</span>
+              <div class="ep-title">BRW Interview</div>
+              <div class="ep-duration"><i class="ti ti-clock" aria-hidden="true"></i> Spotlight</div>
+            </div>
+          </div>
+          <div class="episode-item" data-video-id="VvgqRgC-Rr8" data-title="BLUM-Novotest" data-category="Metrology">
+            <div class="ep-thumb">
+              <img src="https://img.youtube.com/vi/VvgqRgC-Rr8/mqdefault.jpg" alt="" />
+              <div class="play-icon"><i class="ti ti-player-play-filled" aria-hidden="true"></i></div>
+            </div>
+            <div class="ep-info">
+              <span class="ep-num">Metrology &bull; 02</span>
+              <div class="ep-title">BLUM-Novotest</div>
+              <div class="ep-duration"><i class="ti ti-clock" aria-hidden="true"></i> Spotlight</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEMOS -->
+        <div class="sidebar-panel" id="panel-demos" role="tabpanel">
+          <div class="episode-item" data-video-id="LTJcIGrj_6w" data-title="Louis Belet Stainless Demo" data-category="Demos">
+            <div class="ep-thumb">
+              <img src="https://img.youtube.com/vi/LTJcIGrj_6w/mqdefault.jpg" alt="" />
+              <div class="play-icon"><i class="ti ti-player-play-filled" aria-hidden="true"></i></div>
+            </div>
+            <div class="ep-info">
+              <span class="ep-num">Demos &bull; 01</span>
+              <div class="ep-title">Louis Belet Stainless Demo</div>
+              <div class="ep-duration"><i class="ti ti-clock" aria-hidden="true"></i> Spotlight</div>
+            </div>
+          </div>
+          <div class="episode-item" data-video-id="YhicVrCanlo" data-title="Louis Belet Specialty Swiss Tools" data-category="Demos">
+            <div class="ep-thumb">
+              <img src="https://img.youtube.com/vi/YhicVrCanlo/mqdefault.jpg" alt="" />
+              <div class="play-icon"><i class="ti ti-player-play-filled" aria-hidden="true"></i></div>
+            </div>
+            <div class="ep-info">
+              <span class="ep-num">Demos &bull; 02</span>
+              <div class="ep-title">Louis Belet Specialty Swiss Tools</div>
+              <div class="ep-duration"><i class="ti ti-clock" aria-hidden="true"></i> Spotlight</div>
+            </div>
+          </div>
+          <div class="episode-item" data-video-id="sicSMZDi8QQ" data-title="CME on the Road - HELLER &amp; PG48" data-category="Demos">
+            <div class="ep-thumb">
+              <img src="https://img.youtube.com/vi/sicSMZDi8QQ/mqdefault.jpg" alt="" />
+              <div class="play-icon"><i class="ti ti-player-play-filled" aria-hidden="true"></i></div>
+            </div>
+            <div class="ep-info">
+              <span class="ep-num">Demos &bull; 03</span>
+              <div class="ep-title">CME on the Road - HELLER &amp; PG48</div>
+              <div class="ep-duration"><i class="ti ti-clock" aria-hidden="true"></i> Spotlight</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- end sidebar-panels -->
+
+    </aside>
+    <!-- END SIDEBAR -->
+
+  </main>
+
+  <!-- FOOTER -->
+  <div class="checker-bar-bottom" aria-hidden="true"></div>
+  <footer class="footer-band">
+    <div class="footer-logo-row">
+      <img src="https://regousa.com/wp-content/uploads/CME_PNG-White_All.png" alt="Center for Machining Excellence" class="footer-cme-logo" />
+      <div class="footer-v-div" aria-hidden="true"></div>
+      <img src="https://regousa.com/wp-content/uploads/REGOFIX_Logo_50mm_WHITE.png" alt="REGO-FIX" class="footer-rf-logo" />
+    </div>
+    <p class="footer-text">&copy; 2026 REGO-FIX USA &bull; 4420 Anson Blvd, Whitestown IN 46075</p>
+  </footer>
+
+  <script>
+    // ============================================================
+    // INFO TABS (About / Resources) -- below the video
+    // How it works:
+    //   - All .tab-btn elements listen for a click
+    //   - On click, we remove "active" from all buttons and panels
+    //   - Then add "active" to the clicked button and its matching panel
+    //   The data-* attribute isn't used here; we match by index position.
+    // ============================================================
+    const tabBtns   = document.querySelectorAll('.tab-nav .tab-btn');
+    const tabPanels = document.querySelectorAll('.info-tabs .tab-panel');
+
+    tabBtns.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b   => { b.classList.remove('active');   b.setAttribute('aria-selected','false'); });
+        tabPanels.forEach(p =>   p.classList.remove('active'));
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        tabPanels[i].classList.add('active');
+      });
+    });
+
+    // ============================================================
+    // SIDEBAR CATEGORY TABS
+    // Same logic as info tabs above, but for the sidebar.
+    //   - Each .sidebar-tab-btn has a data-panel attribute
+    //     that matches the id of the corresponding .sidebar-panel.
+    //   - On click, we find that panel by id and show it.
+    //
+    // When a new category tab is selected, if it contains the
+    // currently playing video, the active episode stays highlighted.
+    // ============================================================
+    const sidebarTabBtns = document.querySelectorAll('.sidebar-tab-btn');
+    const sidebarPanels  = document.querySelectorAll('.sidebar-panel');
+
+    sidebarTabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-panel');
+
+        sidebarTabBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+        sidebarPanels.forEach(p  =>   p.classList.remove('active'));
+
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+
+    // ============================================================
+    // EPISODE CLICK HANDLER
+    // When a user clicks an episode in the sidebar:
+    //   1. Swap the YouTube embed src to the new video ID
+    //   2. Update the lesson title and series tag in the main column
+    //   3. Move the .active class to the clicked episode item
+    //   4. Update the breadcrumb category text
+    //
+    // data-video-id  = YouTube video ID (the part after youtu.be/)
+    // data-title     = Lesson title string
+    // data-category  = Category name for the breadcrumb
+    // ============================================================
+    const iframe       = document.querySelector('.video-wrapper iframe');
+    const lessonTitle  = document.querySelector('.lesson-title');
+    const seriesTag    = document.querySelector('.lesson-series-tag');
+    const breadcrumbCurrent = document.querySelector('.series-strip .current');
+
+    document.querySelectorAll('.episode-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const videoId  = item.getAttribute('data-video-id');
+        const title    = item.getAttribute('data-title');
+        const category = item.getAttribute('data-category');
+
+        // Swap video
+        iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&autoplay=1`;
+
+        // Update lesson title display
+        lessonTitle.textContent = title;
+        seriesTag.textContent   = `CME Spotlights \u2022 ${category}`;
+
+        // Update breadcrumb
+        if (breadcrumbCurrent) breadcrumbCurrent.textContent = category;
+
+        // Move active state on episode items
+        document.querySelectorAll('.episode-item').forEach(ep => ep.classList.remove('active'));
+        item.classList.add('active');
+
+        // Scroll to top of video on mobile
+        if (window.innerWidth <= 860) {
+          document.querySelector('.video-col').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Auto-load Toolholding tab on page load (that's where the featured video lives)
+    const toolholdingTabBtn = document.querySelector('[data-panel="panel-toolholding"]');
+    if (toolholdingTabBtn) {
+      toolholdingTabBtn.click();
+    }
+  </script>
+
+</body>
+</html>
